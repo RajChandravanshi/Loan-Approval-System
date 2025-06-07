@@ -1,133 +1,105 @@
-\documentclass{article}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{geometry}
-\geometry{margin=1in}
+# Loan Approval Classification Project Report
 
-\title{Loan Approval Classification Project Report}
-\author{Raj Chandravanshi}
-\date{}
+**Author**: Raj Chandravanshi
 
-\begin{document}
+---
 
-\maketitle
+## 📌 Objective
+Predict the likelihood of loan approval using demographic, financial, and credit history features via various machine learning and deep learning models.
 
-\section*{Objective}
-To predict the likelihood of loan approval using demographic, financial, and credit history features via various machine learning and deep learning models.
+---
 
-\section*{Dataset Overview}
-\begin{itemize}
-    \item \textbf{Rows}: 45,000
-    \item \textbf{Columns}: 14
-    \item \textbf{Target Variable}: \texttt{loan\_status}
-\end{itemize}
+## 📊 Dataset Overview
+- **Rows**: 45,000  
+- **Columns**: 14  
+- **Target Variable**: `loan_status`
 
-\subsection*{Features}
-\begin{itemize}
-    \item Demographics: \texttt{person\_age}, \texttt{person\_gender}, \texttt{person\_education}
-    \item Financial: \texttt{person\_income}, \texttt{loan\_amnt}, \texttt{loan\_percent\_income}, \texttt{credit\_score}
-    \item Employment: \texttt{person\_emp\_exp}
-    \item Credit History: \texttt{cb\_person\_cred\_hist\_length}, \texttt{previous\_loan\_defaults\_on\_file}
-    \item Loan Info: \texttt{loan\_intent}, \texttt{loan\_int\_rate}, \texttt{person\_home\_ownership}
-\end{itemize}
+### Features
+- **Demographics**: `person_age`, `person_gender`, `person_education`  
+- **Financial**: `person_income`, `loan_amnt`, `loan_percent_income`, `credit_score`  
+- **Employment**: `person_emp_exp`  
+- **Credit History**: `cb_person_cred_hist_length`, `previous_loan_defaults_on_file`  
+- **Loan Info**: `loan_intent`, `loan_int_rate`, `person_home_ownership`
 
-\section*{Data Cleaning}
-\begin{itemize}
-    \item No missing or duplicate values.
-    \item Detected 15,438 outliers (not removed to retain label integrity).
-\end{itemize}
+---
 
-\section*{Exploratory Data Analysis (EDA)}
-\subsection*{Categorical Variables}
-Count plots were generated to assess loan approval distribution across categorical features.
+## 🧹 Data Cleaning
+- No missing or duplicate values
+- Detected **15,438 outliers** (not removed to retain label integrity)
 
-\subsection*{Numerical Variables}
-Used histograms, KDEs, box plots:
-\begin{itemize}
-    \item Observed skewness in \texttt{person\_income}, \texttt{loan\_int\_rate}
-    \item Strong impact from \texttt{credit\_score}, \texttt{loan\_amnt}
-\end{itemize}
+---
 
-\subsection*{Correlation}
-A heatmap showed that \texttt{credit\_score} and \texttt{loan\_int\_rate} are highly influential.
+## 📈 Exploratory Data Analysis (EDA)
 
-\section*{Feature Engineering}
-\begin{itemize}
-    \item One-hot encoding for categorical features.
-    \item Used \texttt{ColumnTransformer}.
-    \item Train-test split: 80/20.
-\end{itemize}
+### Categorical Variables
+- Count plots were generated to assess loan approval distribution across categorical features.
 
-\section*{Modeling (Before SMOTE)}
-\subsection*{Models Used}
-\begin{itemize}
-    \item Decision Tree, Random Forest, Extra Trees, XGBoost, Gradient Boosting
-\end{itemize}
+### Numerical Variables
+- Skewness observed in: `person_income`, `loan_int_rate`
+- Strong influence from: `credit_score`, `loan_amnt`
 
-\begin{table}[h]
-\centering
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{ROC AUC} \\
-\midrule
-Decision Tree & 0.8991 & 0.7707 & 0.7766 & 0.8553 \\
-Random Forest & 0.9264 & 0.8919 & 0.7607 & 0.9731 \\
-Extra Trees   & 0.9152 & 0.8537 & 0.7458 & 0.9660 \\
-XGBoost       & \textbf{0.9324} & \textbf{0.8822} & \textbf{0.8026} & \textbf{0.9774} \\
-Gradient Boosting & 0.9233 & 0.8765 & 0.7621 & 0.9717 \\
-\bottomrule
-\end{tabular}
-\caption{Model Performance Before SMOTE}
-\end{table}
+### Correlation
+- Heatmap analysis showed `credit_score` and `loan_int_rate` are highly influential.
 
-\section*{Class Imbalance Handling (SMOTE)}
-\begin{itemize}
-    \item SMOTE applied to balance classes.
-    \item Dataset expanded to 70,000 samples.
-\end{itemize}
+---
 
-\subsection*{Post-SMOTE Results}
+## 🛠️ Feature Engineering
+- One-hot encoding for categorical features
+- Used `ColumnTransformer`
+- Train-test split: **80/20**
 
-\begin{table}[h]
-\centering
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{ROC AUC} \\
-\midrule
-Decision Tree & 0.9270 & 0.9258 & 0.9286 & 0.9270 \\
-Random Forest & 0.9524 & 0.9601 & 0.9441 & 0.9922 \\
-Extra Trees   & 0.9492 & 0.9522 & 0.9460 & 0.9916 \\
-XGBoost       & \textbf{0.9563} & \textbf{0.9648} & \textbf{0.9472} & \textbf{0.9936} \\
-Gradient Boosting & 0.9439 & 0.9440 & 0.9439 & 0.9900 \\
-\bottomrule
-\end{tabular}
-\caption{Model Performance After SMOTE}
-\end{table}
+---
 
-\section*{Deep Learning Models}
+## 🤖 Modeling (Before SMOTE)
 
-\subsection*{PyTorch-based ANN}
-\begin{itemize}
-    \item 2 hidden layers with ReLU, BatchNorm, Dropout
-    \item Optimizer: Adam, Loss: BCEWithLogitsLoss
-    \item Trained for 20 epochs, batch size = 256
-    \item Performance was suboptimal
-\end{itemize}
+### Models Used
+- Decision Tree
+- Random Forest
+- Extra Trees
+- XGBoost
+- Gradient Boosting
 
-\subsection*{Keras-based ANN}
-\begin{itemize}
-    \item 4 hidden layers with ReLU, BatchNorm, Dropout
-    \item Optimizer: Adam, Loss: Binary Crossentropy
-    \item Trained for 100 epochs with validation
-    \item Recall varied widely (from 0.3 to 0.99), indicating instability
-\end{itemize}
+### 📋 Model Performance (Before SMOTE)
 
-\section*{Conclusions}
-\begin{itemize}
-    \item \textbf{Best Model:} XGBoost (after SMOTE)
-    \item \textbf{Best Metric:} ROC AUC = 0.9936
-    \item \textbf{Important Features:} \texttt{credit\_score}, \texttt{loan\_amnt}, \texttt{loan\_int\_rate}
-    \item \textbf{Recommendation:} Use tree-based ensemble models like XGBoost for production
-\end{itemize}
+| Model              | Accuracy | Precision | Recall  | ROC AUC |
+|--------------------|----------|-----------|---------|---------|
+| Decision Tree      | 0.8991   | 0.7707    | 0.7766  | 0.8553  |
+| Random Forest      | 0.9264   | 0.8919    | 0.7607  | 0.9731  |
+| Extra Trees        | 0.9152   | 0.8537    | 0.7458  | 0.9660  |
+| **XGBoost**        | **0.9324** | **0.8822** | **0.8026** | **0.9774** |
+| Gradient Boosting  | 0.9233   | 0.8765    | 0.7621  | 0.9717  |
 
-\end{document}
+---
+
+## ⚖️ Class Imbalance Handling (SMOTE)
+- SMOTE applied to balance the classes  
+- Dataset expanded to **70,000 samples**
+
+### 📋 Model Performance (After SMOTE)
+
+| Model              | Accuracy | Precision | Recall  | ROC AUC |
+|--------------------|----------|-----------|---------|---------|
+| Decision Tree      | 0.9270   | 0.9258    | 0.9286  | 0.9270  |
+| Random Forest      | 0.9524   | 0.9601    | 0.9441  | 0.9922  |
+| Extra Trees        | 0.9492   | 0.9522    | 0.9460  | 0.9916  |
+| **XGBoost**        | **0.9563** | **0.9648** | **0.9472** | **0.9936** |
+| Gradient Boosting  | 0.9439   | 0.9440    | 0.9439  | 0.9900  |
+
+---
+
+## 🧠 Deep Learning Models
+### Keras-based ANN
+- 4 hidden layers (ReLU, BatchNorm, Dropout)
+- Optimizer: Adam  
+- Loss: Binary Crossentropy  
+- Trained for 500 epochs with Early Stopping(71 epochs) 
+- Recall on validation dataset is 0.9229
+---
+
+## ✅ Conclusions
+- **Best Model**: XGBoost (after SMOTE)
+- **Best Metric**: ROC AUC = 0.9936
+- **Important Features**: `credit_score`, `loan_amnt`, `loan_int_rate`, `previous_loan_defaults_on_file`
+- **Recommendation**: Use tree-based ensemble models like **XGBoost** in production
+
+---
