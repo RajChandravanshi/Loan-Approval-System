@@ -4,12 +4,12 @@
 
 ---
 
-## 📌 Objective
+## Objective
 Predict the likelihood of loan approval using demographic, financial, and credit history features via various machine learning and deep learning models.
 
 ---
 
-## 📊 Dataset Overview
+## Dataset Overview
 - **Rows**: 45,000  
 - **Columns**: 14  
 - **Target Variable**: `loan_status`
@@ -23,13 +23,13 @@ Predict the likelihood of loan approval using demographic, financial, and credit
 
 ---
 
-## 🧹 Data Cleaning
+##  Data Cleaning
 - No missing or duplicate values
 - Detected **15,438 outliers** (not removed to retain label integrity)
 
 ---
 
-## 📈 Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
 ### Categorical Variables
 - Count plots were generated to assess loan approval distribution across categorical features.
@@ -43,14 +43,14 @@ Predict the likelihood of loan approval using demographic, financial, and credit
 
 ---
 
-## 🛠️ Feature Engineering
+## Feature Engineering
 - One-hot encoding for categorical features
 - Used `ColumnTransformer`
 - Train-test split: **80/20**
 
 ---
 
-## 🤖 Modeling (Before SMOTE)
+## Modeling (Before SMOTE)
 
 ### Models Used
 - Decision Tree
@@ -59,7 +59,7 @@ Predict the likelihood of loan approval using demographic, financial, and credit
 - XGBoost
 - Gradient Boosting
 
-### 📋 Model Performance (Before SMOTE)
+### Model Performance (Before SMOTE)
 
 | Model              | Accuracy | Precision | Recall  | ROC AUC |
 |--------------------|----------|-----------|---------|---------|
@@ -71,11 +71,11 @@ Predict the likelihood of loan approval using demographic, financial, and credit
 
 ---
 
-## ⚖️ Class Imbalance Handling (SMOTE)
+## Class Imbalance Handling (SMOTE)
 - SMOTE applied to balance the classes  
 - Dataset expanded to **70,000 samples**
 
-### 📋 Model Performance (After SMOTE)
+### Model Performance (After SMOTE)
 
 | Model              | Accuracy | Precision | Recall  | ROC AUC |
 |--------------------|----------|-----------|---------|---------|
@@ -87,7 +87,7 @@ Predict the likelihood of loan approval using demographic, financial, and credit
 
 ---
 
-## 🧠 Deep Learning Models
+## Deep Learning Models
 ### Keras-based ANN
 - 4 hidden layers (ReLU, BatchNorm, Dropout)
 - Optimizer: Adam  
@@ -96,7 +96,7 @@ Predict the likelihood of loan approval using demographic, financial, and credit
 - Recall on validation dataset is 0.9229
 ---
 
-## ✅ Conclusions
+## Conclusions
 - **Best Model**: XGBoost (after SMOTE)
 - **Best Metric**: ROC AUC = 0.9936
 - **Important Features**: `credit_score`, `loan_amnt`, `loan_int_rate`, `previous_loan_defaults_on_file`
