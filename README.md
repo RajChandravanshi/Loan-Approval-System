@@ -103,3 +103,8 @@ Predict the likelihood of loan approval using demographic, financial, and credit
 - **Recommendation**: Use tree-based ensemble models like **XGBoost** in production
 
 ---
+![Logo](./image/image_1.png)
+
+
+![Logo](./image/image_2.png)
+
